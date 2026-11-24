@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,11 +24,11 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build F-Droid Release APK
-        run: ./gradlew assembleFdroidRelease
+      - name: Build F-Droid Debug APK
+        run: ./gradlew assembleFdroidDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: quiet-dial-fdroid-apk
-          path: app/build/outputs/apk/fdroid/release/*.apk
+          path: android/app/build/outputs/apk/fdroid/debug/*.apk
